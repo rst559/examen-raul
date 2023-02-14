@@ -21,7 +21,10 @@ export class AppComponent {
     this.http.getArtworks().subscribe((data: any) => {
       this.artworks = data.data;
     });
-
+    console.log(this.http.getArtists().subscribe((data: any) => {
+      this.artists = data.data;
+    }));
   }
+
 
 }

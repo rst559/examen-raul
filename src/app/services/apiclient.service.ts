@@ -11,25 +11,21 @@ export class ApiclientService {
   constructor(private http: HttpClient) { 
     let artists = [];
     let artworks = [];
-    this.getArtists().subscribe((data: any) => {
-      artists = data.data;
-    }
-    );
-    this.getArtworks().subscribe((data: any) => {
-      artworks = data.data;
-    });
   }
   // we connect to the api and the recieved data we save in a array
   ngOnInit(): void {
     
   }
-  // we get the artists from the api
   getArtists(): Observable<any> {
-    return this.http.get('https://api.artic.edu/api/v1/artists');
+    return this.http.get('https://api.artic.edu/api/v1/artists?limit=100').pipe(map((data: any) => {
+      this.artists = data.data;
+      return data;
+    }));
   }
-  // we get the artworks from the api
   getArtworks(): Observable<any> {
-    return this.http.get('https://api.artic.edu/api/v1/artworks');
+    return this.http.get('https://api.artic.edu/api/v1/artworks?limit=100').pipe(map((data: any) => {
+      this.artworks = data.data;
+      return data;
+    }));
   }
-
 }
