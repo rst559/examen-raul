@@ -9,9 +9,19 @@ import { ApiclientService } from './services/apiclient.service';
 })
 export class AppComponent {
   title = 'examen-raul';
+  artists: any;
+  artworks: any;
   constructor(private http: ApiclientService) {
-    this.http = http;
-    console.log(this.http.getArtworks())
+    this.artists = [];
+    this.artworks = [];
+    // try to get the data from the api
+    this.http.getArtists().subscribe((data: any) => {
+      this.artists = data.data;
+    });
+    this.http.getArtworks().subscribe((data: any) => {
+      this.artworks = data.data;
+    });
+
   }
 
 }

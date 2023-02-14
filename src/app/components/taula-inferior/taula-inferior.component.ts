@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiclientService } from 'src/app/services/apiclient.service';
 
 @Component({
   selector: 'taula-inferior-component',
-  template: `
-    <ul>
-      <li *ngFor="let artwork of artworks">{{ artwork}}</li>
-    </ul>
-  `,
+  templateUrl: './taula-inferior.component.html',
+  styleUrls: ['./taula-inferior.component.css']
 })
+
 export class TaulaInferiorComponent {
-  artworks = [];
+  artists: any;
+  artworks: any;
 
-  constructor(private api: ApiclientService) { }
-
-  ngOnInit() {
-    this.api.getArtworks().then((data: any) => {
-      this.artworks = data.data;
-    });
-    console.log(this.artworks)
+  constructor(private api: ApiclientService) {
+    this.artists = [];
+    this.artworks = [];
   }
+
+  ngOnInit(): void 
+  {
+    this.artists.push(this.api.getArtists());
+  }
+
 }
